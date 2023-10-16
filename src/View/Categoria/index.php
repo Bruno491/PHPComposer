@@ -6,14 +6,46 @@
     <?php
         if(isset($_SESSION["gravar"])){
             if($_SESSION["gravar"])
-                echo"Registro gravado com sucesso!";
+                echo'<div class="alert alert-sucess alert-dismissible fade show" role="alert">
+                        Registro gravado com sucesso!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
             else
-                echo "Erro ao gravar o registro!";
+                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Erro ao inserir o registro!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
             unset($_SESSION["gravar"]);
+        }
+        if(isset($_SESSION["editar"])){
+            if($_SESSION["editar"])
+                echo'<div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Registro alterado com sucesso!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+            else
+                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Erro ao alterar o registro!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+            unset($_SESSION["editar"]);
+        }
+        if(isset($_SESSION["deletar"])){
+            if($_SESSION["deletar"])
+                echo'<div class="alert alert-info alert-dismissible fade show" role="alert">
+                        Registro excluido!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+            else
+                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Erro ao excluir o registro!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+            unset($_SESSION["deletar"]);
         }
     ?>
 
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover" id="tabela">
             <thead class="table-light">
                 <tr>
                     <th scope="col">#</th>
@@ -26,7 +58,7 @@
                     while($c = $resultado->fetch(PDO::FETCH_ASSOC)){
                 ?>
                 <tr>
-                    <th scope="row"><?=$c["id"]?></th>
+                    <td><?=$c["id"]?></td>
                     <td><?=$c["descricao"]?></td>
                     <td>
                         <a href="/categoria/alterar/<?=$c["id"]?>" class="btn btn-outline-warning">Alterar</a>
